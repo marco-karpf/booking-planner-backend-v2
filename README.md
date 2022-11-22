@@ -1,60 +1,26 @@
-# booking-planner-backend-v2 Project
+# ZLI - Multi-User-Applikationen realisieren - booking-planner-backend-v2 
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This is the backend for the booking-planner application. It is a simple REST API that allows to create, read, update and delete bookings and users.
+This project uses Quarkus, the Supersonic Subatomic Java Framework. If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## First Steps
+1. Create a copy (fork) of this project and suggestively the project `booking-planner-frontend`.
+1. Make sure you have Postgres server running in a docker container e.g.
+1. Open the project in your desired ide.
+1. Start the prject with the following command: `./mvnw compile quarkus:dev`
+1. Backend  listens on http://localhost:8080.
+1. Check out the api documentations on  http://localhost:8080/q/swagger-ui/.
+1. Optional: package  the application using `./mvnw package`.
 
-## Running the application in dev mode
+## Database
+The data is stored in a PostgreSQL database. In the development environment, this is configured in the application.properties file.
+> **_NOTE:_** Please check the application.properties file for the database configuration.
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+### Database setup
+- db-Kind:`postgres`
+- username: `marco`
+- password: `1234`
+- database-jdbc-url: `jdbc:postgresql://localhost:5432/db_bookings`
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
-
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/booking-planner-backend-v2-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- RESTEasy Reactive ([guide](https://quarkus.io/guides/resteasy-reactive)): A JAX-RS implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+## automated testings
+Automated tests can be executed with `./mvnw quarkus:test`. For the automated tests, the `import.sql`is used for the database setup.
