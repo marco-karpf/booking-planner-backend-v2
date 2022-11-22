@@ -11,6 +11,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * Class: User
+ * @author marco
+ * @version 22.11.22
+ */
 @UserDefinition
 @Entity
 @Table(name = "users")

@@ -64,7 +64,8 @@ public class BookingResource {
 
 
     /**
-     * get all bookings of for admin and all bookings of the logged-in user for members
+     * get all bookings of for admin and all bookings of the logged-in user for members.
+     * It is also possible to search by title
      *
      * @param username username of the user to get the bookings for
      * @param title    title of  bookings to get
@@ -113,7 +114,6 @@ public class BookingResource {
     public Response getBookingByStatus(@PathParam("status") String status) {
         try {
             List<Booking> bookings = bookingService.getBookingsByStatus(status);
-            System.out.println(bookings);
             return Response.ok(bookings).build();
         } catch (Exception e) {
             System.out.println(e);
@@ -224,7 +224,7 @@ public class BookingResource {
     public Response deleteBooking(@PathParam("id") Long id) {
         if (Booking.findById(id) != null) {
             bookingService.deleteBooking(id);
-            return Response.ok().build();
+            return Response.noContent().build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }

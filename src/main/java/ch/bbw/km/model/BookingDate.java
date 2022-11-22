@@ -5,6 +5,11 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Class: BookingDate
+ * @author marco
+ * @version 22.11.22
+ */
 @Entity
 public class BookingDate extends PanacheEntityBase {
     @Id
