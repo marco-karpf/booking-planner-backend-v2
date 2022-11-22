@@ -100,6 +100,28 @@ public class BookingResource {
     }
 
     /**
+     * find bookings by status
+     *
+     * @param status String status of the booking
+     * @return list of bookings
+     */
+    @GET
+    @Path("/status/{status}")
+    @RolesAllowed("ADMIN")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Get all bookings by status", description = "Get all bookings by status")
+    public Response getBookingByStatus(@PathParam("status") String status) {
+        try {
+            List<Booking> bookings = bookingService.getBookingsByStatus(status);
+            System.out.println(bookings);
+            return Response.ok(bookings).build();
+        } catch (Exception e) {
+            System.out.println(e);
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    /**
      * Creates a new booking for the logged in user
      *
      * @param booking the booking to create

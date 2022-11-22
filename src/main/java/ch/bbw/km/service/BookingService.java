@@ -33,6 +33,10 @@ public class BookingService {
         return Booking.list("SELECT b.bookings FROM User b WHERE b.username = ?1", username);
     }
 
+    public List<Booking> getBookingsByStatus(String status) {
+        System.out.println(status);
+        return Booking.list("SELECT b FROM Booking b WHERE b.status.status = ?1", status);
+    }
 
     @Transactional
     public Booking createBooking(Booking booking) {
