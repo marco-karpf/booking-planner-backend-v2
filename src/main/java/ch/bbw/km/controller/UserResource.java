@@ -51,7 +51,7 @@ public class UserResource {
             User user = userService.getUserById(id);
             return Response.ok(user).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
