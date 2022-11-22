@@ -8,6 +8,7 @@ import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @UserDefinition
@@ -20,16 +21,17 @@ public class User extends PanacheEntityBase {
     public String lastName;
     public String firstName;
     public int age;
-    @Column(nullable = false)
+    @NotBlank(message = "Username is mandatory")
     @Username
     public String username;
-    @Column(nullable = false)
+    @NotBlank(message = "Password is mandatory")
     @Password
     public String password;
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(length = 50, unique = true)
+    @NotBlank(message = "Email is mandatory")
     public String email;
     @Roles
-    @Column(nullable = false)
+    @NotBlank(message = "Role is mandatory")
     public String role;
     public String image;
     public String profession;

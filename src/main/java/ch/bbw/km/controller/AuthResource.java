@@ -9,6 +9,7 @@ import org.jose4j.json.internal.json_simple.JSONObject;
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,7 +38,7 @@ public class AuthResource {
     @PermitAll
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(User user) {
+    public Response createUser(@Valid User user) {
         if (User.count() == 0) {
             user.role = "ADMIN";
         } else {
@@ -64,9 +65,7 @@ public class AuthResource {
     public Response login(User user) {
         try {
             User userToLogin = User.find("username", user.username).singleResult();
-            System.out.println(user.username + " " + user.password);
             if (userToLogin != null && userToLogin.password.equals(user.password)) {
-                System.out.println("User found");
                 String jwt = jwtService.generateJwt(userToLogin);
                 JSONObject locaStorage = new JSONObject();
                 locaStorage.put("jwt", jwt);
