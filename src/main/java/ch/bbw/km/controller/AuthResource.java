@@ -4,6 +4,7 @@ import ch.bbw.km.model.User;
 import ch.bbw.km.security.JwtService;
 import ch.bbw.km.service.UserService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.jose4j.json.internal.json_simple.JSONObject;
 
 import javax.annotation.security.PermitAll;
@@ -20,10 +21,8 @@ public class AuthResource {
 
     @Inject
     JwtService jwtService;
-
     @Inject
     UserService userService;
-
     @Inject
     JsonWebToken jwt;
 
@@ -38,6 +37,7 @@ public class AuthResource {
     @PermitAll
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Create a user", description = "Create a user")
     public Response createUser(@Valid User user) {
         if (User.count() == 0) {
             user.role = "ADMIN";
@@ -62,6 +62,7 @@ public class AuthResource {
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Login a user", description = "Login a user")
     public Response login(User user) {
         try {
             User userToLogin = User.find("username", user.username).singleResult();
@@ -86,6 +87,7 @@ public class AuthResource {
     @Path("/logout")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
+    @Operation(summary = "Logout a user", description = "Logout a user")
     public Response logout() {
         try {
             User user = User.find("email", jwt.getClaim("email").toString()).singleResult();
