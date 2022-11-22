@@ -86,7 +86,7 @@ class UserResourceTest {
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().delete("/users/265166")
+                .when().delete("/users/3865131")
                 .then()
                 .statusCode(200);
     }

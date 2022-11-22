@@ -59,6 +59,15 @@ class BookingResourceTest {
                 .then()
                 .statusCode(200);
     }
+    @Test
+    void getBookingByUserUsernameAndTitleForAnotherUserWithoutRequiredPermission() {
+        User member = User.find("username", "jane").firstResult();
+        given()
+                .contentType("application/json")
+                .when().get("/bookings/user/john?title=Review")
+                .then()
+                .statusCode(401);
+    }
 
     @Test
     void getBookingByStatus() {
