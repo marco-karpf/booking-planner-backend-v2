@@ -38,7 +38,7 @@ class UserResourceTest {
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().get("/users/2")
+                .when().get("/users/3865131")
                 .then()
                 .statusCode(200);
     }
@@ -62,16 +62,19 @@ class UserResourceTest {
         User user = new User();
         user.firstName = "Jane";
         user.lastName = "Doe";
-        user.age = 20;
+        user.age = 67;
         user.username = "jane";
         user.password = "123";
         user.email = "jane.doe@mail.com";
         user.role = "MEMBER";
+        user.bookingReason = "Review";
+        user.image="";
+        user.profession = "Developer";
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
                 .body(user)
-                .when().put("/users/2")
+                .when().put("/users/265166")
                 .then()
                 .statusCode(200);
     }
@@ -83,7 +86,7 @@ class UserResourceTest {
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().delete("/users/2")
+                .when().delete("/users/265166")
                 .then()
                 .statusCode(200);
     }
