@@ -7,9 +7,6 @@ import ch.bbw.km.model.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
-import java.awt.print.Book;
-import java.util.ArrayList;
-import java.util.Formattable;
 import java.util.List;
 
 @ApplicationScoped

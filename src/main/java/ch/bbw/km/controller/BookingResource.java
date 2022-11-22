@@ -62,7 +62,6 @@ public class BookingResource {
         }
     }
 
-
     /**
      * get all bookings of for admin and all bookings of the logged-in user for members.
      * It is also possible to search by title

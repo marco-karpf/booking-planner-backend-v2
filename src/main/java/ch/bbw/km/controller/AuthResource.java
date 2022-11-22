@@ -51,7 +51,6 @@ public class AuthResource {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
-
     /**
      * checks if the user exists and if username and password match, then creates a jwt token
      * @param user the user to login

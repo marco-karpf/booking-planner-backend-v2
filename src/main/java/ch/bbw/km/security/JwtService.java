@@ -13,6 +13,7 @@ public class JwtService {
                 .upn(user.username)
                 .subject("zurich-crowdfunding-space")
                 .groups(user.role)
+                // setting the token to expire to 24 hours
                 .expiresIn(86400)
                 .claim(Claims.email.name(), user.email)
                 .sign();
