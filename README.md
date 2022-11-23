@@ -1,13 +1,14 @@
 # ZLI - Multi-User-Applikationen realisieren - booking-planner-backend-v2
 
 This is the backend for the booking-planner application. It is a simple REST API that allows to create, read, update and
-delete bookings and users.
+delete bookings and users. https://github.com/marco-karpf/booking-planner-backend-v2
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework. If you want to learn more about Quarkus, please
 visit its website: https://quarkus.io/ .
 
 ## Setup
 
-1. Create a copy (fork) of this project and suggestively the project `booking-planner-frontend`.
+1. Create a copy (fork) of this project and suggestively the project `booking-planner-frontend`. https://github.com/marco-karpf/booking-planner-frontend
 1. Make sure you have postgres server running in on `port 5432` e.g. in a docker container .
 1. Open the project in your desired ide.
 
