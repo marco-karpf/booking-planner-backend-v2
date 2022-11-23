@@ -100,4 +100,12 @@ public class AuthResourceTest {
                 .statusCode(200);
 
     }
+    @Test
+    public void logoutUserWithoutJWT() {
+        given()
+                .contentType("application/json")
+                .when().get("/logout")
+                .then()
+                .statusCode(401);
+    }
 }

@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.jose4j.json.internal.json_simple.JSONObject;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class AuthResource {
 
     /**
      * creates a user, sets the first user to admin and the rest to member
+     *
      * @param user the user to create
      * @return the created response
      */
@@ -53,6 +55,7 @@ public class AuthResource {
 
     /**
      * checks if the user exists and if username and password match, then creates a jwt token
+     *
      * @param user the user to login
      * @return jwt token and the user
      */
@@ -79,20 +82,21 @@ public class AuthResource {
     }
 
     /**
-     *returns message that the user is logged out
+     * returns message that the user is logged out
+     *
      * @return message that the user is logged out
      */
     @GET
     @Path("/logout")
-    @PermitAll
+    @RolesAllowed({"ADMIN", "MEMBER"})
     @Produces(MediaType.TEXT_PLAIN)
     @Operation(summary = "Logout a user", description = "Logout a user")
     public Response logout() {
-        try {
-            User user = User.find("email", jwt.getClaim("email").toString()).singleResult();
-            return Response.ok("User with " + user.username + " has been logged out successfully").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        User user = User.find("email", jwt.getClaim("email").toString()).singleResult();
+        if (user != null) {
+            return Response.ok("User " + user.username + " logged out").build();
         }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
+
 }
