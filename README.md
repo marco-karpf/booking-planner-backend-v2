@@ -52,9 +52,14 @@ database setup.
 - `password` 123
     </td>
     <td>
-- `email` john.doe@mail.com
-- `username` john
+- `email` jane.doe@mail.com
+- `username` jane
 - `password` 123
     </td>
  </tr>
 </table>
+
+
+## Login route
+http://localhost:8080/login
+
