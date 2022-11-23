@@ -5,7 +5,6 @@ import ch.bbw.km.model.User;
 import ch.bbw.km.service.BookingService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.openapi.annotations.Operation;
-
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -54,10 +53,11 @@ public class BookingResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get a booking by id", description = "Get a booking by id")
     public Response getBookingById(@PathParam("id") Long id) {
-        try {
-            Booking booking = bookingService.getBookingById(id);
+
+        Booking booking = bookingService.getBookingById(id);
+        if (booking != null) {
             return Response.ok(booking).build();
-        } catch (Exception e) {
+        } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

@@ -35,6 +35,17 @@ class BookingResourceTest {
                 .then()
                 .statusCode(401);
     }
+    @Test
+    void getAllBookingsWithoutRequiredPermission() {
+        User member = User.find("username", "jane").firstResult();
+        String jwt = new JwtService().generateJwt(member);
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + jwt)
+                .when().get("/bookings")
+                .then()
+                .statusCode(403);
+    }
 
     @Test
     void getBookingById() {
@@ -49,6 +60,18 @@ class BookingResourceTest {
     }
 
     @Test
+    void getNonExistingBookingById() {
+        User admin = User.find("username", "john").firstResult();
+        String jwt = new JwtService().generateJwt(admin);
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + jwt)
+                .when().get("/bookings/999999999")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     void getBookingByUserUsernameAndTitle() {
         User member = User.find("username", "jane").firstResult();
         String jwt = new JwtService().generateJwt(member);
@@ -60,7 +83,7 @@ class BookingResourceTest {
                 .statusCode(200);
     }
     @Test
-    void getBookingByUserUsernameAndTitleForAnotherUserWithoutRequiredPermission() {
+    void getBookingByUserUsernameAndTitleForAnotherUserWithoutJWT() {
         User member = User.find("username", "jane").firstResult();
         given()
                 .contentType("application/json")
@@ -122,7 +145,7 @@ class BookingResourceTest {
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().put("/bookings/cancel/1213")
+                .when().put("/bookings/cancel/56765")
                 .then()
                 .statusCode(200);
     }
@@ -134,7 +157,7 @@ class BookingResourceTest {
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().put("/bookings/confirm/1213")
+                .when().put("/bookings/confirm/43533454")
                 .then()
                 .statusCode(200);
     }
