@@ -20,7 +20,7 @@ class UserResourceTest {
     }
 
     @Test
-    void getUserWithJWT(){
+    void getUserWithJWT() {
         User admin = User.find("username", "john").firstResult();
         String jwt = new JwtService().generateJwt(admin);
         given()
@@ -44,6 +44,18 @@ class UserResourceTest {
     }
 
     @Test
+    void getNotExistingUserById() {
+        User admin = User.find("username", "john").firstResult();
+        String jwt = new JwtService().generateJwt(admin);
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + jwt)
+                .when().get("/users/9999999")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     void getUsersByUsername() {
         User admin = User.find("username", "john").firstResult();
         String jwt = new JwtService().generateJwt(admin);
@@ -53,6 +65,17 @@ class UserResourceTest {
                 .when().get("/users/username/?username=jane")
                 .then()
                 .statusCode(200);
+    }
+    @Test
+    void getUserByUsernameNotFound() {
+        User admin = User.find("username", "john").firstResult();
+        String jwt = new JwtService().generateJwt(admin);
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + jwt)
+                .when().get("/users/username/?username=notExisting")
+                .then()
+                .statusCode(404);
     }
 
     @Test
@@ -68,7 +91,7 @@ class UserResourceTest {
         user.email = "jane.doe@mail.com";
         user.role = "MEMBER";
         user.bookingReason = "Review";
-        user.image="";
+        user.image = "";
         user.profession = "Developer";
         given()
                 .contentType("application/json")
@@ -80,13 +103,36 @@ class UserResourceTest {
     }
 
     @Test
+    void updateUserUnsuccessful() {
+        User admin = User.find("username", "john").firstResult();
+        String jwt = new JwtService().generateJwt(admin);
+        User user = new User();
+        user.firstName = "Jane";
+        user.lastName = "Doe";
+        user.age = 67;
+        user.username = "jane";
+        user.password = "123";
+        user.role = "MEMBER";
+        user.bookingReason = "Review";
+        user.image = "";
+        user.profession = "Developer";
+        given()
+                .contentType("application/json")
+                .header("Authorization", "Bearer " + jwt)
+                .body(user)
+                .when().put("/users/265166")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
     void deleteUser() {
         User admin = User.find("username", "john").firstResult();
         String jwt = new JwtService().generateJwt(admin);
         given()
                 .contentType("application/json")
                 .header("Authorization", "Bearer " + jwt)
-                .when().delete("/users/3865131")
+                .when().delete("/users/265166")
                 .then()
                 .statusCode(200);
     }

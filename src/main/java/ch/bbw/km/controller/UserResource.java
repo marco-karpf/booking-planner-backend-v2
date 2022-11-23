@@ -47,10 +47,10 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get a user by id", description = "Get a user by id")
     public Response getUserById(@PathParam("id") Long id) {
-        try {
-            User user = userService.getUserById(id);
+        User user = userService.getUserById(id);
+        if (user != null) {
             return Response.ok(user).build();
-        } catch (Exception e) {
+        } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -93,8 +93,12 @@ public class UserResource {
     public Response updateUser(@PathParam("id") Long id, User user) {
         User userToUpdate = userService.getUserById(id);
         if (userToUpdate != null) {
+            try {
             User updatedUser = userService.updateUser(id, user);
             return Response.ok(updatedUser).build();
+            } catch (Exception e) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         }
         return Response.status(Response.Status.NOT_FOUND).build();
 
@@ -119,4 +123,5 @@ public class UserResource {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
 }
